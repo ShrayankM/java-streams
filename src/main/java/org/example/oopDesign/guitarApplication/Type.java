@@ -1,5 +1,5 @@
 package org.example.oopDesign.guitarApplication;
 
-public enum Type {
+public enum Type implements Property {
 	ACOUSTIC, ELECTRIC
 }

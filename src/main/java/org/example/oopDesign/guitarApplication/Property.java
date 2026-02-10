@@ -1,5 +1,4 @@
 package org.example.oopDesign.guitarApplication;
 
-public enum Style implements Property {
-	A, F
+public interface Property {
 }
