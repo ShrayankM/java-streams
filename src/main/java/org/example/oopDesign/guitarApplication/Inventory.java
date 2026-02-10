@@ -4,36 +4,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Inventory {
-	private List<Guitar> guitarList;
+	private List<Instrument> instrumentList;
 
 	public Inventory() {
-		this.guitarList = new ArrayList<>();
+		this.instrumentList = new ArrayList<>();
 	}
 
-	public void addGuitar(String serialNumber, Double price, GuitarSpec guitarSpec) {
-		Guitar guitar = new Guitar(serialNumber, price, guitarSpec);
-		guitarList.add(guitar);
+	public void addInstrument(String serialNumber, Double price, InstrumentSpecification instrumentSpecification) {
+		Instrument instrument = null;
+
+		if (instrumentSpecification instanceof GuitarSpec guitarSpec) {
+			instrument = new Guitar(serialNumber, price, guitarSpec);
+		}
+
+		if (instrumentSpecification instanceof MandolinSpec mandolinSpec) {
+			instrument = new Mandolin(serialNumber, price, mandolinSpec);
+		}
+		instrumentList.add(instrument);
 	}
 
-	public Guitar getGuitar(String serialNumber) {
-		for (Guitar guitar : guitarList) {
-			if (guitar.getSerialNumber().equals(serialNumber)) {
-				return guitar;
+	private Instrument getInstrument(String serialNumber) {
+		for (Instrument instrument : instrumentList) {
+			if (instrument.getSerialNumber().equals(serialNumber)) {
+				return instrument;
 			}
 		}
 		return null;
 	}
 
-	public List<Guitar> searchGuitar(GuitarSpec searchGuitarSpec) {
-		List<Guitar> foundGuitars = new ArrayList<>();
-		if (searchGuitarSpec == null) return null;
-
-		for (Guitar existingGuitar : guitarList) {
-			GuitarSpec existingGuitarSpec = existingGuitar.getGuitarSpec();
-			if (existingGuitarSpec.compareGuitarSpec(searchGuitarSpec)) {
-				foundGuitars.add(existingGuitar);
+	public List<Instrument> searchInstrument(InstrumentSpecification instrumentSpecification) {
+		List<Instrument> foundInstruments = new ArrayList<>();
+		for (Instrument instrument : instrumentList) {
+			if (instrument.getInstrumentSpecification().matches(instrumentSpecification)) {
+				foundInstruments.add(instrument);
 			}
 		}
-		return foundGuitars;
+		return foundInstruments;
 	}
 }
