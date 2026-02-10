@@ -10,16 +10,8 @@ public class Inventory {
 		this.instrumentList = new ArrayList<>();
 	}
 
-	public void addInstrument(String serialNumber, Double price, InstrumentSpecification instrumentSpecification) {
-		Instrument instrument = null;
-
-		if (instrumentSpecification instanceof GuitarSpec guitarSpec) {
-			instrument = new Guitar(serialNumber, price, guitarSpec);
-		}
-
-		if (instrumentSpecification instanceof MandolinSpec mandolinSpec) {
-			instrument = new Mandolin(serialNumber, price, mandolinSpec);
-		}
+	public void addInstrument(String serialNumber, Double price, InstrumentType instrumentType,  InstrumentSpecification instrumentSpecification) {
+		Instrument instrument = new Instrument(serialNumber, price, instrumentType, instrumentSpecification);
 		instrumentList.add(instrument);
 	}
 
