@@ -2,37 +2,42 @@ package org.example;
 
 public class LeetCodeMain {
 	public static void main(String [] args) {
-		System.out.println(minEatingSpeed(new int[]{805306368,805306368,805306368}, 1000000000));
+		System.out.println(compress(new char[]{'a','b','b','b','b','b','b','b','b','b','b','b','b'}));
 	}
 
-	public static int minEatingSpeed(int[] piles, int h) {
-		int left = 1, right = 0;
+	public static int compress(char[] chars) {
+		int index = 0;
+		int writePointer = 0;
+		char previousChar = chars[index];
+		int currentCount = 0;
 
-		for (int pile : piles) right = Math.max(right, pile);
-		int currentMinK = right;
+		while (index < chars.length) {
+			if (previousChar == chars[index]) currentCount++;
+			else {
+				chars[writePointer++] = previousChar;
 
-		while (left <= right) {
-			int k = (right + left) / 2;
+				if (currentCount > 1) {
+					for (char c : String.valueOf(currentCount).toCharArray()) {
+						chars[writePointer++] = c;
+					}
+				}
 
-			if (isKSpeedEnough(piles, k, h)) {
-				currentMinK = Math.min(currentMinK, k);
-				right = k - 1;
-			} else {
-				left = k + 1;
+				previousChar = chars[index];
+				currentCount = 0;
+				continue;
+			}
+			index++;
+		}
+
+		chars[writePointer++] = previousChar;
+
+		if (currentCount > 1) {
+			for (char c : String.valueOf(currentCount).toCharArray()) {
+				chars[writePointer++] = c;
 			}
 		}
-		return currentMinK;
-	}
 
-	private static boolean isKSpeedEnough(int [] piles, int k, int hoursAvailable) {
-		long hours = 0;
-
-		for (int pile : piles) {
-			hours = hours + (pile / k);
-			if (pile % k != 0) hours++;
-		}
-
-		return hours <= hoursAvailable;
+		return writePointer;
 	}
 }
 
