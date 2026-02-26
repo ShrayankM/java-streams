@@ -5,40 +5,40 @@ import java.util.List;
 import java.util.Map;
 
 public class ParkingManager {
-	Map<VehicleSize, List<ParkingSpot>> availableParkingSpots = new HashMap<>();
-	Map<Vehicle, ParkingSpot> vehicleToParkingSpotMap = new HashMap<>();
+	private Map<VehicleSize, List<ParkingSpot>> parkingSpots;
+	private Map<Vehicle, ParkingSpot> vehicleToParkingSpotMap;
 
-	ParkingSpot findParkingSpotForVehicle(Vehicle vehicle) {
+	public ParkingManager(Map<VehicleSize, List<ParkingSpot>> parkingSpots) {
+		this.parkingSpots = parkingSpots;
+		this.vehicleToParkingSpotMap = new HashMap<>();
+	}
+
+	public ParkingSpot findParkingSpot(Vehicle vehicle) {
 		VehicleSize vehicleSize = vehicle.getVehicleSize();
 
 		for (VehicleSize size : VehicleSize.values()) {
 			if (size.ordinal() >= vehicleSize.ordinal()) {
-				List<ParkingSpot> parkingSpotForVehicle = availableParkingSpots.get(size);
-				for (ParkingSpot parkingSpot : parkingSpotForVehicle) {
-					if (parkingSpot.isAvaliable()) return parkingSpot;
+				List<ParkingSpot> parkingSpotList = parkingSpots.get(size);
+
+				for (ParkingSpot parkingSpot : parkingSpotList) {
+					if (parkingSpot.isParkingSpotVacant()) return parkingSpot;
 				}
 			}
 		}
 		return null;
 	}
 
-	ParkingSpot parkVehicle(Vehicle vehicle) {
-		ParkingSpot parkingSpot = findParkingSpotForVehicle(vehicle);
-
+	public ParkingSpot parkVehicle(Vehicle vehicle) {
+		ParkingSpot parkingSpot = findParkingSpot(vehicle);
 		if (parkingSpot != null) {
-			parkingSpot.occupy(vehicle);
-			vehicleToParkingSpotMap.put(vehicle, parkingSpot);
-			availableParkingSpots.get(vehicle.getVehicleSize()).remove(parkingSpot);
-			return parkingSpot;
+			parkingSpot.occupySpot(vehicle);
+			this.vehicleToParkingSpotMap.put(vehicle, parkingSpot);
 		}
-		return null;
+		return parkingSpot;
 	}
 
-	void unparkVehicle(Vehicle vehicle) {
-		ParkingSpot occupiedParkingSpot = vehicleToParkingSpotMap.remove(vehicle);
-		if (occupiedParkingSpot != null) {
-			occupiedParkingSpot.vacat();
-			availableParkingSpots.get(vehicle.getVehicleSize()).add(occupiedParkingSpot);
-		}
+	public void unparkVehicle(Vehicle vehicle) {
+		ParkingSpot parkedParkingSpot = this.vehicleToParkingSpotMap.get(vehicle);
+		parkedParkingSpot.vacatSpot();
 	}
 }

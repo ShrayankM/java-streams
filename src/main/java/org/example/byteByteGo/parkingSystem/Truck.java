@@ -1,9 +1,9 @@
 package org.example.byteByteGo.parkingSystem;
 
-public class Car implements Vehicle {
+public class Truck implements Vehicle {
 	private final String licensePlate;
 
-	public Car(String licensePlate) {
+	public Truck(String licensePlate) {
 		this.licensePlate = licensePlate;
 	}
 
@@ -14,6 +14,6 @@ public class Car implements Vehicle {
 
 	@Override
 	public VehicleSize getVehicleSize() {
-		return VehicleSize.REGULAR;
+		return VehicleSize.OVERSIZED;
 	}
 }

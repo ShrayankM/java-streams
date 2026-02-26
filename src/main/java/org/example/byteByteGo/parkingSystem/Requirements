@@ -1,13 +1,10 @@
-1. The parking system supports multiple types of vehicles (motorcycles, cars, trucks)
-2. The parking system supports multiple types of parking spots (compact, regular, oversized)
-3. The parking system needs to issue a parking ticket on vehicle entry & log the duration for which the vehicle was parked.
-4. Customers need to pay a fee (parking-fee) during exit depending on vehicle size & duration & time-of-the-day.
+Parking lot supports multiple types of vehicles (Motorcycle, Car, Bus)
+Parking spot is of different types (compact, regular, oversized)
+Ticket needs to be issued to a vehicle upon entry & fee needs to be calculated on exit & vacat the parking spot.
+Vehicles can be parked depending on vehicle size in parking spots.
 
-
-Core objects
-
-1. Vehicle (size, license-plate) represent a vehicle that needs a parking-spot.
-2. ParkingSpot (size, id) represents the spot where vehicle is parked.
-3. Ticket (Vehicle, ParkingSpot, id, start-time, end-time) represents the ticket issued to customer on entry.
-4. ParkingManager
-5. ParkingLot
+Questions (4)
+    - types of vehicles
+    - types of parking-spots
+    - searching algorithm for a parking spot
+    - fees calculation & ticket generation

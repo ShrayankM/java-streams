@@ -6,25 +6,25 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.Random;
 
 @Getter
 public class Ticket {
-	private int id;
-	private ParkingSpot parkingSpot;
-	private Vehicle vehicle;
-	private LocalDateTime entryTime;
+	private final String id;
+	private final Vehicle vehicle;
+	private final LocalDateTime entryTime;
 	private LocalDateTime exitTime;
-	private BigDecimal fees;
+	private Double fees;
 
-	public Ticket(ParkingSpot parkingSpot, Vehicle vehicle) {
-		this.id = new Random().nextInt();
-		this.parkingSpot = parkingSpot;
+	public Ticket(String id, Vehicle vehicle) {
+		this.id = id;
 		this.vehicle = vehicle;
 		this.entryTime = LocalDateTime.now();
 	}
 
-	BigDecimal calculateParkingDuration() {
-		return new BigDecimal(Duration.between(entryTime, Objects.requireNonNullElse(exitTime, LocalDateTime.now())).toMinutes());
+	public BigDecimal getVehicleParkedDuration() {
+		return new BigDecimal(
+				Duration.between(
+						entryTime, Objects.requireNonNullElseGet(exitTime, LocalDateTime::now)
+				).toSeconds());
 	}
 }
