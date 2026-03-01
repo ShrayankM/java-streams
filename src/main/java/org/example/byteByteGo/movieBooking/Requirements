@@ -1,0 +1,9 @@
+System should support multiple theaters, with each theater has multiple screens.
+One Movie can have multiple screenings across screens, in multiple theaters & time-slots.
+
+Each screen has a grid like structure for seats.
+Seat has different types based on which pricing will be calculated (normal, vip, premium)
+
+Users should be able to search movies & book available tickets.
+A ticket represent a single seat in a screening.
+Multiple tickets can be booked for a screening.
