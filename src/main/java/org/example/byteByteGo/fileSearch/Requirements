@@ -1,0 +1,13 @@
+Build a file search system to search files on attributes of file like size, filename, type, owner.
+System can contains files as well as directories.
+Search all files in a particular given directory.
+The system should support different search commands depending on the attribute
+
+   - like size > 10, size = 10, size < 10
+   - like filename matches regex pattern
+   - like filetype = video
+
+Enhancements
+    - The system should support complex search or combined search commands as well.
+    - like size > 10 AND filename matches regex-pattern AND type = video
+    - like (size = 10 AND filename matches regex-pattern) OR (size = 20 AND type video) OR (type not video)
