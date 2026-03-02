@@ -30,6 +30,8 @@ public class MoneyInsertedState implements VendingMachineState {
 			vendingMachine.updateVendingMachineState(new ProductSelectedState());
 		} else {
 			System.out.println("Insufficient funds entered, please add more money");
+			PaymentProcessor paymentProcessor = vendingMachine.getPaymentProcessor();
+			paymentProcessor.returnChange();
 			vendingMachine.updateVendingMachineState(new IdleState());
 		}
 	}

@@ -17,7 +17,9 @@ public class ProductSelectedState implements VendingMachineState {
 	public Product dispenseProduct(VendingMachine vendingMachine) {
 		InventoryManager inventoryManager = vendingMachine.getInventoryManager();
 		TransactionManager transactionManager = vendingMachine.getTransactionManager();
+		PaymentProcessor paymentProcessor = vendingMachine.getPaymentProcessor();
 
+		paymentProcessor.charge(transactionManager.getTotalAmount());
 		Product product = inventoryManager.dispenseProductFromRack(transactionManager.getRack().getRackCode());
 		vendingMachine.updateVendingMachineState(new ProductDispensedState());
 		return product;
